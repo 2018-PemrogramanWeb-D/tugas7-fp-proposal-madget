@@ -1,4 +1,6 @@
-﻿ <?php
+﻿<?php
+session_start();
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -13,6 +15,14 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 echo "Connected successfully";
+
+if (!isset($_SESSION['admin']))
+{
+    echo "<script>alert('Anda harus Login');</script>";
+    echo "<script>location='login.php';</script>";
+    header('location:login.php');
+    exit();
+}
 ?> 
 
 <!DOCTYPE html>
@@ -98,6 +108,14 @@ font-size: 16px;"> Last access : 4 Des 2018 &nbsp; <a href="login.html" class="b
                     elseif ($_GET['halaman']=="hapusproduk")
                     {
                         include 'hapus_produk.php';
+                    }
+                    elseif ($_GET['halaman']=="ubahproduk")
+                    {
+                        include 'ubah_produk.php';
+                    }
+                    elseif ($_GET['halaman']=="logout")
+                    {
+                        include 'logout.php';
                     }
                 }
                 else
